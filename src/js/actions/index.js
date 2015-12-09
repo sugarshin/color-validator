@@ -35,6 +35,10 @@ export function deleteValidateColors(index) {
   return { type: types.DELETE_VALIDATE_COLORS, index };
 }
 
+export function deleteImage(index) {
+  return { type: types.DELETE_IMAGE, index };
+}
+
 /**
  * @param {[Number, Number, Number]} rgb
  * @param {Number} alpha

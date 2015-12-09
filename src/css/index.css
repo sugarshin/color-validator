@@ -1,8 +1,5 @@
-h1 {
-  color: tomato;
-  font-size: 122px;
-  a {
-    font-size: 12px;
-    color: red;
-  }
+.preivew-image {
+  position: absolute;
+  top: 10px;
+  left: 230px;
 }
