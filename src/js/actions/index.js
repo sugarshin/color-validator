@@ -3,12 +3,19 @@ import getPixels from 'get-pixels';
 import rgbHex from 'rgb-hex';
 
 import * as types from '../constants/actionTypes';
+import { MIME_TYPE_IMAGE } from '../constants';
 
 export function receiveImages(images) {
-  return { type: types.RECEIVE_IMAGES, images };
+  return dispatch => {
+    if (validateImageMIMETYPE(images)) {
+      dispatch(addImage(images));
+    } else {
+      dispatch(invalidImages());
+    }
+  };
 }
 
-export function validateImages() {
+export function validateImageColor() {
   return (dispatch, getState) => {
     const { images, validateColors } = getState();
     images.forEach(image => {
@@ -27,7 +34,6 @@ export function validateImages() {
 }
 
 export function addValidateColors(color) {
-  console.log(color);
   return { type: types.ADD_VALIDATE_COLORS, color };
 }
 
@@ -35,8 +41,16 @@ export function deleteValidateColors(index) {
   return { type: types.DELETE_VALIDATE_COLORS, index };
 }
 
+export function addImage(images) {
+  return { type: types.ADD_IMAGE, images };
+}
+
 export function deleteImage(index) {
   return { type: types.DELETE_IMAGE, index };
+}
+
+function invalidImages() {
+  return { type: types.INVALID_IMAGES };
 }
 
 /**
@@ -46,4 +60,12 @@ export function deleteImage(index) {
  */
 function toHexAndAlpha(rgb, alpha) {
   return [`#${rgbHex(...rgb)}`, alpha / 255];
+}
+
+/**
+ * @param {Array} images
+ * @returns {Boolean}
+ */
+function validateImageMIMETYPE(images) {
+  return images.every(image => MIME_TYPE_IMAGE.includes(image.type));
 }

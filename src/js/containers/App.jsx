@@ -26,11 +26,15 @@ class App extends Component {
               <button onClick={() => this.props.actions.deleteImage(i)}>x</button>
             </div>
           ))}
+          {this.props.didInvalidate ? <p>ファイル形式が画像じゃないですね</p> : null}
         </div>
-        <button onClick={this.props.actions.validateImages}>validate</button>
+        <button onClick={this.props.actions.validateImageColor}>validate</button>
         {this.props.images.length > 0 && this.props.isInvalid ? <span>指定カラーが含まれています</span> : null}
         {this.props.images.length > 0 && this.props.isInvalid === false ? <span>OK!</span> : null}
-        <AddColorButton actions={this.props.actions} />
+        <div className="color-input-container">
+          <input type="text" ref="colorInput" />
+          <button onClick={() => this.props.actions.addValidateColors(this.refs.colorInput.value)}>Add color</button>
+        </div>
         <p>チェックする色</p>
         <ul className="validate-colors">
           {this.props.validateColors.map((color, i) => <li key={i}>{color} <button onClick={() => this.props.actions.deleteValidateColors(i)}>x</button></li>)}

@@ -4,17 +4,10 @@ import initialState from '../constants/initialState';
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.RECEIVE_IMAGES:
+  case types.ADD_IMAGE:
     return Object.assign({}, state, {
-      isFileReading: false,
       didInvalidate: false,
-      images: action.images
-    });
-
-  case types.VALIDATE_IMAGES:
-    return Object.assign({}, state, {
-      isFileReading: false,
-      didInvalidate: false
+      images: [...state.images, ...action.images]
     });
 
   case types.UPDATE_VALIDATITON:
@@ -32,16 +25,14 @@ export default function reducer(state = initialState, action) {
       validateColors: state.validateColors.filter((c, i) => i !== action.index)
     });
 
-  case types.ADD_IMAGE:
-    return Object.assign({}, state, {
-      isFileReading: false,
-      didInvalidate: false,
-      images: action.images
-    });
-
   case types.DELETE_IMAGE:
     return Object.assign({}, state, {
       images: state.images.filter((c, i) => i !== action.index)
+    });
+
+  case types.INVALID_IMAGES:
+    return Object.assign({}, state, {
+      didInvalidate: true
     });
 
   default:
