@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import AddColorButton from '../components/AddColorButton';
-
 import * as rootActions from '../actions';
 
 const mapStateToProps = state => ({ ...state });
